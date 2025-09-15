@@ -1,0 +1,82 @@
+{% extends 'shop/base.html' %}
+
+{% block title %}About Us - Ipswich Retail{% endblock %}
+
+{% block content %}
+<div class="container my-5">
+    <!-- Hero Section -->
+    <div class="row mb-5">
+        <div class="col-12">
+            <div class="bg-primary text-white p-5 rounded text-center">
+                <h1 class="display-4">About Ipswich Retail</h1>
+                <p class="lead">Pioneering E-commerce with Django MVT Architecture</p>
+            </div>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-lg-8 mx-auto">
+            <div class="card shadow">
+                <div class="card-body p-5">
+                    <h2 class="mb-4">Our Mission</h2>
+                    <p class="mb-4">Ipswich Retail represents a modern approach to e-commerce, built with Django's powerful Model-View-Template (MVT) architecture. Our Proof-of-Concept solution addresses the challenges of traditional monolithic systems by implementing scalable, maintainable, and efficient web applications.</p>
+
+                    <h3 class="mb-3">Why Django MVT?</h3>
+                    <div class="row mb-4">
+                        <div class="col-md-4 mb-3">
+                            <div class="text-center">
+                                <i class="fas fa-database fa-3x text-primary mb-3"></i>
+                                <h5>Model Layer</h5>
+                                <p>Robust data management with ORM, ensuring data integrity and relationships.</p>
+                            </div>
+                        </div>
+                        <div class="col-md-4 mb-3">
+                            <div class="text-center">
+                                <i class="fas fa-eye fa-3x text-primary mb-3"></i>
+                                <h5>View Layer</h5>
+                                <p>Clean business logic separation with class-based and function-based views.</p>
+                            </div>
+                        </div>
+                        <div class="col-md-4 mb-3">
+                            <div class="text-center">
+                                <i class="fas fa-paint-brush fa-3x text-primary mb-3"></i>
+                                <h5>Template Layer</h5>
+                                <p>Dynamic, responsive user interfaces with Django's template engine.</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <h3 class="mb-3">DevOps Integration</h3>
+                    <p class="mb-4">Our solution incorporates modern DevOps practices including:</p>
+                    <ul class="list-unstyled mb-4">
+                        <li class="mb-2"><i class="fas fa-check text-success me-2"></i><strong>Automated Testing:</strong> Comprehensive test suite with unit and integration tests</li>
+                        <li class="mb-2"><i class="fas fa-check text-success me-2"></i><strong>CI/CD Pipeline:</strong> Continuous integration and deployment workflows</li>
+                        <li class="mb-2"><i class="fas fa-check text-success me-2"></i><strong>Code Quality:</strong> Automated code review and quality assurance</li>
+                        <li class="mb-2"><i class="fas fa-check text-success me-2"></i><strong>Monitoring:</strong> Application performance monitoring and logging</li>
+                    </ul>
+
+                    <h3 class="mb-3">Technical Features</h3>
+                    <div class="row">
+                        <div class="col-md-6">
+                            <ul class="list-unstyled">
+                                <li class="mb-2"><i class="fas fa-cog text-primary me-2"></i>Django Admin Panel</li>
+                                <li class="mb-2"><i class="fas fa-cog text-primary me-2"></i>SQLite Database</li>
+                                <li class="mb-2"><i class="fas fa-cog text-primary me-2"></i>Image Upload Support</li>
+                                <li class="mb-2"><i class="fas fa-cog text-primary me-2"></i>Search & Filtering</li>
+                            </ul>
+                        </div>
+                        <div class="col-md-6">
+                            <ul class="list-unstyled">
+                                <li class="mb-2"><i class="fas fa-cog text-primary me-2"></i>Responsive Design</li>
+                                <li class="mb-2"><i class="fas fa-cog text-primary me-2"></i>Category Management</li>
+                                <li class="mb-2"><i class="fas fa-cog text-primary me-2"></i>Product Ratings</li>
+                                <li class="mb-2"><i class="fas fa-cog text-primary me-2"></i>Stock Management</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
