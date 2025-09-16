@@ -60,8 +60,15 @@ RUN pip install -r requirements.txt
 # Copy project files
 COPY . /app
 
-# Add non-root user
-RUN useradd -m appuser
+# Create staticfiles directory and set proper permissions
+RUN mkdir -p /app/staticfiles && \
+    mkdir -p /app/media && \
+    chmod -R 755 /app/staticfiles && \
+    chmod -R 755 /app/media
+
+# Add non-root user and set ownership
+RUN useradd -m appuser && \
+    chown -R appuser:appuser /app
 USER appuser
 
 # Run migrations, collect static files, and start gunicorn
