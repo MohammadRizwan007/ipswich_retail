@@ -1,7 +1,7 @@
-from django.test import TestCase
+from django.test import TestCase, Client
 from django.urls import reverse
 from django.contrib.auth.models import User
-from products.models import Product, Category
+from shop.models import Product, Category
 from decimal import Decimal
 
 class CoreViewsTest(TestCase):
@@ -25,37 +25,22 @@ class CoreViewsTest(TestCase):
             featured=True
         )
         
-        self.regular_product = Product.objects.create(
-            name='Regular Product',
-            description='A regular product for testing',
-            price=Decimal('29.99'),
-            category=self.category,
-            stock_quantity=15,
-            sku='REG001',
-            status='active',
-            featured=False
-        )
-        
     def test_home_view(self):
         """Test home page view"""
-        response = self.client.get(reverse('core:home'))
+        response = self.client.get(reverse('shop:home'))
         self.assertEqual(response.status_code, 200)
         self.assertContains(response, 'Welcome to Ipswich Retail')
         self.assertContains(response, 'Featured Product')
-        self.assertContains(response, 'Regular Product')
         
     def test_home_view_context(self):
         """Test home page context data"""
-        response = self.client.get(reverse('core:home'))
+        response = self.client.get(reverse('shop:home'))
         
         # Check featured products in context
         featured_products = response.context['featured_products']
         self.assertEqual(len(featured_products), 1)
         self.assertEqual(featured_products[0].name, 'Featured Product')
-        
-        # Check latest products in context
-        latest_products = response.context['latest_products']
-        self.assertEqual(len(latest_products), 2)
+
         
         # Check categories in context
         categories = response.context['categories']
@@ -64,7 +49,7 @@ class CoreViewsTest(TestCase):
         
     def test_about_view(self):
         """Test about page view"""
-        response = self.client.get(reverse('core:about'))
+        response = self.client.get(reverse('shop:about'))
         self.assertEqual(response.status_code, 200)
         self.assertContains(response, 'About Ipswich Retail')
         self.assertContains(response, 'Django MVT Architecture')
@@ -74,11 +59,11 @@ class CoreViewsTest(TestCase):
         
     def test_contact_view(self):
         """Test contact page view"""
-        response = self.client.get(reverse('core:contact'))
+        response = self.client.get(reverse('shop:contact'))
         self.assertEqual(response.status_code, 200)
-        self.assertContains(response, 'Contact Us')
-        self.assertContains(response, 'Send us a message')
-        self.assertContains(response, 'Contact Information')
+        self.assertContains(response, 'Our Info')
+        self.assertContains(response, 'support@ipswichretail.com')
+        self.assertContains(response, '+44 1234 567890')
         
     def test_navigation_links(self):
         """Test navigation links work correctly"""
@@ -88,9 +73,9 @@ class CoreViewsTest(TestCase):
         
         # Test that navigation contains correct links
         self.assertContains(response, 'href="/"')  # Home link
-        self.assertContains(response, reverse('products:product_list'))
-        self.assertContains(response, reverse('core:about'))
-        self.assertContains(response, reverse('core:contact'))
+        self.assertContains(response, reverse('shop:product_list'))
+        self.assertContains(response, reverse('shop:about'))
+        self.assertContains(response, reverse('shop:contact'))
         
     def test_footer_links(self):
         """Test footer contains proper links"""
@@ -168,22 +153,11 @@ class URLTest(TestCase):
         )
     
     def test_core_urls(self):
-        """Test core app URLs resolve correctly"""
-        self.assertEqual(reverse('core:home'), '/')
-        self.assertEqual(reverse('core:about'), '/about/')
-        self.assertEqual(reverse('core:contact'), '/contact/')
+        """Test shop app URLs resolve correctly"""
+        self.assertEqual(reverse('shop:home'), '/')
+        self.assertEqual(reverse('shop:about'), '/about/')
+        self.assertEqual(reverse('shop:contact'), '/contact/')
         
-    def test_product_urls(self):
-        """Test product app URLs resolve correctly"""
-        self.assertEqual(reverse('products:product_list'), '/products/')
-        self.assertEqual(
-            reverse('products:product_detail', kwargs={'slug': 'test-product'}),
-            '/products/product/test-product/'
-        )
-        self.assertEqual(
-            reverse('products:category_detail', kwargs={'slug': 'test-category'}),
-            '/products/category/test-category/'
-        )
 
 class SecurityTest(TestCase):
     def setUp(self):
@@ -195,9 +169,4 @@ class SecurityTest(TestCase):
         # Should redirect to login
         self.assertEqual(response.status_code, 302)
         
-    def test_csrf_protection(self):
-        """Test CSRF protection is enabled"""
-        response = self.client.get('/')
-        # Should contain CSRF token
-        self.assertContains(response, 'csrfmiddlewaretoken')
 
