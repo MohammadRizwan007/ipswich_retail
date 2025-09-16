@@ -5,3 +5,4 @@ redis
 Pillow==11.2.1
 django-prometheus
 psycopg2-binary
+dj-database-url
