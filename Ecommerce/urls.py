@@ -23,6 +23,8 @@ from django.conf.urls.static import static
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('', include('shop.urls')),
+    path('', include('django_prometheus.urls')),  # Prometheus metrics endpoint
+
 ]
 
 # Serve media files during development
