@@ -25,4 +25,5 @@ RUN useradd -m appuser
 USER appuser
 
 # Start Django with gunicorn
-CMD ["gunicorn", "Ecommerce.wsgi:application", "--bind", "0.0.0.0:$PORT", "--workers", "3"]
+CMD gunicorn Ecommerce.wsgi:application --bind 0.0.0.0:$PORT --workers 3
+
