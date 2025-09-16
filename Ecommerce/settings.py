@@ -189,6 +189,7 @@ https://docs.djangoproject.com/en/5.2/ref/settings/
 """
 import os
 from pathlib import Path
+import dj_database_url
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -268,8 +269,8 @@ WSGI_APPLICATION = 'Ecommerce.wsgi.application'
 # https://docs.djangoproject.com/en/5.2/ref/settings/#databases
 
 # Use DATABASE_URL environment variable if available (Railway provides this)
-if os.environ.get('DATABASE_URL'):
-    import dj_database_url
+# Database configuration
+if 'DATABASE_URL' in os.environ:
     DATABASES = {
         'default': dj_database_url.config(
             default=os.environ.get('DATABASE_URL'),
@@ -278,7 +279,6 @@ if os.environ.get('DATABASE_URL'):
         )
     }
 else:
-    # Fallback to PostgreSQL with environment variables
     DATABASES = {
         'default': {
             'ENGINE': 'django.db.backends.postgresql',
