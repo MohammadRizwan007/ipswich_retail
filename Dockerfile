@@ -24,8 +24,20 @@ COPY . /app
 RUN useradd -m appuser
 USER appuser
 
+# Create entrypoint script
+RUN echo '#!/bin/bash\n\
+python manage.py migrate --noinput\n\
+python manage.py collectstatic --noinput\n\
+exec gunicorn Ecommerce.wsgi:application --bind 0.0.0.0:$PORT --workers 3' > /app/entrypoint.sh
+
+RUN chmod +x /app/entrypoint.sh
+
+# Use the entrypoint script
+CMD ["/app/entrypoint.sh"]
+
+
 # Start Django with gunicorn
-CMD gunicorn Ecommerce.wsgi:application --bind 0.0.0.0:$PORT --workers 3
+# CMD gunicorn Ecommerce.wsgi:application --bind 0.0.0.0:$PORT --workers 3
 # CMD sh -c "python manage.py collectstatic --noinput && gunicorn Ecommerce.wsgi:application --bind 0.0.0.0:$PORT --workers 3"
 
 
