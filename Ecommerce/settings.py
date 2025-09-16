@@ -25,6 +25,7 @@ DEBUG = os.environ.get('DEBUG', '0') == '1'
 CSRF_TRUSTED_ORIGINS = [
     "https://ipswichretail-production.up.railway.app",
 ]
+# ALLOWED_HOSTS = ["*"]
 ALLOWED_HOSTS = ["ipswichretail-production.up.railway.app"]
 # ALLOWED_HOSTS = os.environ.get('ALLOWED_HOSTS', '').split(',')
 # SECRET_KEY = 'django-insecure-&m4(o*@z1mx0x9xg*pvoq=z$s=%-kasi)#_77n-)yy!um%5w%e'
