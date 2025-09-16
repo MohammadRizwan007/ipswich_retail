@@ -1,5 +1,6 @@
 Django==5.2.5
 gunicorn
+whitenoise
 redis
 Pillow==11.2.1
 django-prometheus
