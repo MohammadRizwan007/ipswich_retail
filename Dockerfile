@@ -18,12 +18,14 @@ RUN pip install -r requirements.txt
 COPY . /app
 
 # Collect static files
-RUN python manage.py collectstatic --noinput
+# RUN python manage.py collectstatic --noinput
 
 # Add non-root user
 RUN useradd -m appuser
 USER appuser
 
 # Start Django with gunicorn
-CMD gunicorn Ecommerce.wsgi:application --bind 0.0.0.0:$PORT --workers 3
+# CMD gunicorn Ecommerce.wsgi:application --bind 0.0.0.0:$PORT --workers 3
+CMD sh -c "python manage.py collectstatic --noinput && gunicorn Ecommerce.wsgi:application --bind 0.0.0.0:$PORT --workers 3"
+
 
