@@ -2,6 +2,8 @@ from django.db import models
 from django.urls import reverse
 from django.core.validators import MinValueValidator, MaxValueValidator
 from django.utils.text import slugify
+import os
+from django.conf import settings
 
 # Create your models here.
 
@@ -13,6 +15,9 @@ from django.utils.text import slugify
 
 #     def __str__(self):
 #         return self.name
+
+os.makedirs(os.path.join(settings.MEDIA_ROOT, 'products'), exist_ok=True)
+
 
 class Category(models.Model):
     name = models.CharField(max_length=100, unique=True)

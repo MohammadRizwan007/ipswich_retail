@@ -230,7 +230,8 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'shop',
-    'django_prometheus'  # adding django_prometheus
+    'django_prometheus',  # adding django_prometheus
+    'shop.apps.ShopConfig',
 ]
 
 MIDDLEWARE = [
