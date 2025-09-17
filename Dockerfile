@@ -73,14 +73,8 @@ RUN useradd -m appuser && \
 
 USER appuser
 
-# Copy and use startup script
-COPY start.sh /app/
-RUN chmod +x /app/start.sh
-
-CMD ["/app/start.sh"]
-
 # Run migrations, collect static files, and start gunicorn
-# CMD bash -c "python manage.py migrate --noinput && python manage.py collectstatic --noinput && gunicorn Ecommerce.wsgi:application --bind 0.0.0.0:\${PORT:-8000} --workers 3"
+CMD bash -c "python manage.py migrate --noinput && python manage.py collectstatic --noinput && gunicorn Ecommerce.wsgi:application --bind 0.0.0.0:\${PORT:-8000} --workers 3"
 
 
 
