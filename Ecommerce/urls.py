@@ -26,8 +26,7 @@ urlpatterns = [
     path('', include('shop.urls')),
     path('', include('django_prometheus.urls')),  # Prometheus metrics endpoint
     # path("metrics/", exports.ExportToDjangoView, name="metrics"),
-
-]
+]+ static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
 
 # Serve media files during development
 if settings.DEBUG:
