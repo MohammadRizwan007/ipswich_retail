@@ -41,6 +41,39 @@
 # # CMD sh -c "python manage.py collectstatic --noinput && gunicorn Ecommerce.wsgi:application --bind 0.0.0.0:$PORT --workers 3"
 
 
+# FROM python:3.11-slim
+
+# ENV PYTHONDONTWRITEBYTECODE=1
+# ENV PYTHONUNBUFFERED=1
+
+# WORKDIR /app
+
+# # System dependencies
+# RUN apt-get update && apt-get install -y build-essential \
+#     && rm -rf /var/lib/apt/lists/*
+
+# # Install Python dependencies
+# COPY requirements.txt /app/
+# RUN pip install --upgrade pip
+# RUN pip install -r requirements.txt
+
+# # Copy project files
+# COPY . /app
+
+# # Create staticfiles directory and set proper permissions
+# RUN mkdir -p /app/staticfiles && \
+#     mkdir -p /app/media && \
+#     chmod -R 755 /app/staticfiles && \
+#     chmod -R 755 /app/media
+
+# # Add non-root user and set ownership
+# RUN useradd -m appuser && \
+#     chown -R appuser:appuser /app
+# USER appuser
+
+# # Run migrations, collect static files, and start gunicorn
+# CMD bash -c "python manage.py migrate --noinput && python manage.py collectstatic --noinput && gunicorn Ecommerce.wsgi:application --bind 0.0.0.0:\${PORT:-8000} --workers 3"
+
 FROM python:3.11-slim
 
 ENV PYTHONDONTWRITEBYTECODE=1
@@ -60,19 +93,13 @@ RUN pip install -r requirements.txt
 # Copy project files
 COPY . /app
 
-# Create staticfiles directory and set proper permissions
-RUN mkdir -p /app/staticfiles && \
-    mkdir -p /app/media && \
-    chmod -R 755 /app/staticfiles && \
-    chmod -R 755 /app/media
+# Create staticfiles directory (permissions safe)
+RUN mkdir -p /app/staticfiles
 
 # Add non-root user and set ownership
 RUN useradd -m appuser && \
     chown -R appuser:appuser /app
 USER appuser
 
-# Run migrations, collect static files, ensure media folder permissions, and start gunicorn
-CMD bash -c "python manage.py migrate --noinput && python manage.py collectstatic --noinput && chmod 755 /app/media && gunicorn Ecommerce.wsgi:application --bind 0.0.0.0:\${PORT:-8000} --workers 3"
-
 # Run migrations, collect static files, and start gunicorn
-# CMD bash -c "python manage.py migrate --noinput && python manage.py collectstatic --noinput && gunicorn Ecommerce.wsgi:application --bind 0.0.0.0:\${PORT:-8000} --workers 3"
+CMD bash -c "python manage.py migrate --noinput && python manage.py collectstatic --noinput && gunicorn Ecommerce.wsgi:application --bind 0.0.0.0:\${PORT:-8000} --workers 3"
