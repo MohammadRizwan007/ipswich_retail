@@ -60,21 +60,29 @@ RUN pip install -r requirements.txt
 # Copy project files
 COPY . /app
 
-# Create staticfiles directory and set proper permissions
-RUN mkdir -p /app/staticfiles && \
-    mkdir -p /app/media && \
-    chmod -R 755 /app/staticfiles && \
-    chmod -R 755 /app/media
+# Create all necessary directories with proper permissions
+RUN mkdir -p /app/media /app/media/products /app/staticfiles && \
+    chmod -R 775 /app/media && \
+    chmod -R 755 /app/staticfiles
 
 # Add non-root user and set ownership
 RUN useradd -m appuser && \
-    chown -R appuser:appuser /app
+    chown -R appuser:appuser /app && \
+    chown -R appuser:appuser /app/media && \
+    chown -R appuser:appuser /app/media/products
+
 USER appuser
 
-RUN chown -R appuser:appuser /app/media
+# Copy and use startup script
+COPY start.sh /app/
+RUN chmod +x /app/start.sh
+
+CMD ["/app/start.sh"]
 
 # Run migrations, collect static files, and start gunicorn
-CMD bash -c "python manage.py migrate --noinput && python manage.py collectstatic --noinput && gunicorn Ecommerce.wsgi:application --bind 0.0.0.0:\${PORT:-8000} --workers 3"
+# CMD bash -c "python manage.py migrate --noinput && python manage.py collectstatic --noinput && gunicorn Ecommerce.wsgi:application --bind 0.0.0.0:\${PORT:-8000} --workers 3"
+
+
 
 # FROM python:3.11-slim
 
