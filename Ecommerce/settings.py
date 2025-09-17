@@ -331,8 +331,20 @@ STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
 STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
 
 # Media files
+# MEDIA_URL = '/media/'
+# MEDIA_ROOT = os.environ.get('RAILWAY_VOLUME_MOUNT_PATH', os.path.join(BASE_DIR, 'media'))
+# Media files
 MEDIA_URL = '/media/'
-MEDIA_ROOT = os.environ.get('RAILWAY_VOLUME_MOUNT_PATH', os.path.join(BASE_DIR, 'media'))
+
+# Use Railway volume if available, otherwise fallback
+RAILWAY_VOLUME_PATH = os.environ.get('RAILWAY_VOLUME_MOUNT_PATH')
+if RAILWAY_VOLUME_PATH:
+    MEDIA_ROOT = os.path.join(RAILWAY_VOLUME_PATH, 'media')
+else:
+    MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
+
+# Ensure the media directory exists
+os.makedirs(MEDIA_ROOT, exist_ok=True)
 
 # MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 
