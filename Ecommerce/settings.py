@@ -348,6 +348,11 @@ else:
     MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
     print(f"Using local media directory: {MEDIA_ROOT}")
 
+print("=== SETTINGS DEBUG ===")
+print(f"MEDIA_ROOT: {MEDIA_ROOT}")
+print(f"Current directory: {os.getcwd()}")
+print("======================")
+
 # MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 
 # Default primary key field type
