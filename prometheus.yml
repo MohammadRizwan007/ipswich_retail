@@ -6,7 +6,7 @@ scrape_configs:
   - job_name: 'django_app'
     metrics_path: '/metrics'
     static_configs:
-      - targets: ['ipswich_retail:8000']  # replace with your Django service name and port
+      - targets: ['ipswichretail-production.up.railway.app']  # replace with your Django service name and port
 
   - job_name: 'prometheus'
     static_configs:

@@ -25,6 +25,7 @@ urlpatterns = [
     path('admin/', admin.site.urls),
     path('', include('shop.urls')),
     path('', include('django_prometheus.urls')),  # Prometheus metrics endpoint
+    
 ]
 
 
