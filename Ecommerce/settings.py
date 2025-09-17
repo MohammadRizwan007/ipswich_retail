@@ -229,7 +229,8 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    'shop',
+    # 'shop',
+    'shop.apps.ShopConfig',
     'django_prometheus',  # adding django_prometheus
 ]
 
