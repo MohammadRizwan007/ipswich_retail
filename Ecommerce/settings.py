@@ -332,9 +332,10 @@ STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
 STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
 
 # Media files
+MEDIA_ROOT = os.environ.get('RAILWAY_VOLUME_MOUNT_PATH', os.path.join(BASE_DIR, 'media'))
 MEDIA_URL = '/media/'
-# MEDIA_ROOT = os.environ.get('RAILWAY_VOLUME_MOUNT_PATH', os.path.join(BASE_DIR, 'media'))
-MEDIA_ROOT = '/tmp/media'
+
+
 
 print("=== SETTINGS DEBUG ===")
 print(f"MEDIA_ROOT: {MEDIA_ROOT}")
