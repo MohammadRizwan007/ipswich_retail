@@ -331,22 +331,8 @@ STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
 STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
 
 # Media files
-# MEDIA_URL = '/media/'
-# MEDIA_ROOT = os.environ.get('RAILWAY_VOLUME_MOUNT_PATH', os.path.join(BASE_DIR, 'media'))
-# Media files
 MEDIA_URL = '/media/'
-
-# Use Railway volume if available, otherwise fallback
-RAILWAY_VOLUME_PATH = os.environ.get('RAILWAY_VOLUME_MOUNT_PATH')
-
-if RAILWAY_VOLUME_PATH:
-    # The volume is mounted at RAILWAY_VOLUME_MOUNT_PATH, use it directly
-    MEDIA_ROOT = RAILWAY_VOLUME_PATH
-    print(f"Using Railway volume for media: {MEDIA_ROOT}")
-else:
-    # Fallback to local media directory
-    MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
-    print(f"Using local media directory: {MEDIA_ROOT}")
+MEDIA_ROOT = os.environ.get('RAILWAY_VOLUME_MOUNT_PATH', os.path.join(BASE_DIR, 'media'))
 
 print("=== SETTINGS DEBUG ===")
 print(f"MEDIA_ROOT: {MEDIA_ROOT}")
