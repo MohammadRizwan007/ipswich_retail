@@ -190,6 +190,7 @@ https://docs.djangoproject.com/en/5.2/ref/settings/
 import os
 from pathlib import Path
 import dj_database_url
+from django.contrib.auth import get_user_model
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -354,10 +355,12 @@ LOGGING = {
     },
 }
 
-# Security settings for production
-# if not DEBUG:
-#     SECURE_SSL_REDIRECT = True
-#     SESSION_COOKIE_SECURE = True
-#     CSRF_COOKIE_SECURE = True
-#     SECURE_BROWSER_XSS_FILTER = True
-#     SECURE_CONTENT_TYPE_NOSNIFF = True
+# Create superuser if it doesn't exist
+if os.environ.get('CREATE_SUPERUSER', 'False').lower() == 'true':
+    User = get_user_model()
+    if not User.objects.filter(is_superuser=True).exists():
+        User.objects.create_superuser(
+            username=os.environ.get('SUPERUSER_USERNAME', 'rizwanhussain'),
+            email=os.environ.get('SUPERUSER_EMAIL', 'admin@example.com'),
+            password=os.environ.get('SUPERUSER_PASSWORD', 'Test@12345')
+        )
