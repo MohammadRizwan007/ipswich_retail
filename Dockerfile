@@ -71,5 +71,5 @@ RUN useradd -m appuser && \
     chown -R appuser:appuser /app
 USER appuser
 
-# Run migrations, collect static files, and start gunicorn
-CMD bash -c "python manage.py migrate --noinput && python manage.py collectstatic --noinput && gunicorn Ecommerce.wsgi:application --bind 0.0.0.0:\${PORT:-8000} --workers 3"
+# Run migrations, fix media permissions, collect static, and start gunicorn
+CMD bash -c "mkdir -p /app/media && chmod -R 777 /app/media && python manage.py migrate --noinput && python manage.py collectstatic --noinput && gunicorn Ecommerce.wsgi:application --bind 0.0.0.0:\${PORT:-8000} --workers 3"
