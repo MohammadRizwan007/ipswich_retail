@@ -13,7 +13,6 @@ jobs:
 
       - name: Log in to GHCR
         run: echo "${{ secrets.GH_PAT }}" | docker login ghcr.io -u ${{ github.actor }} --password-stdin
-        # run: echo "${{ secrets.GITHUB_TOKEN }}" | docker login ghcr.io -u ${{ github.actor }} --password-stdin
 
       - name: Build Docker image
         run: docker build -t ghcr.io/mohammadrizwan007/ipswich_retail:latest .
