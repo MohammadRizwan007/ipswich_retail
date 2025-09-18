@@ -1750,3 +1750,10 @@ Watching for file changes with StatReloader
 "GET /static/admin/js/nav_sidebar.js HTTP/1.1" 200 3063
 "GET /contact/ HTTP/1.1" 200 9017
 "GET / HTTP/1.1" 200 10164
+Watching for file changes with StatReloader
+/app/Ecommerce/settings.py changed, reloading.
+Watching for file changes with StatReloader
+/app/Ecommerce/settings.py changed, reloading.
+Watching for file changes with StatReloader
+/app/Ecommerce/settings.py changed, reloading.
+Watching for file changes with StatReloader

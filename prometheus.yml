@@ -1,0 +1,29 @@
+global:
+  scrape_interval: 15s
+  evaluation_interval: 15s
+
+scrape_configs:
+  # - job_name: 'django_app'
+  #   metrics_path: '/metrics'
+  #   static_configs:
+  #     - targets: ['web:8000'] 
+  
+  - job_name: 'django_app_railway'
+    scheme: 'https'  # Add this since Railway uses HTTPS
+    metrics_path: '/metrics'
+    scrape_interval: 30s
+    scrape_timeout: 20s
+    tls_config:
+      insecure_skip_verify: true  # May be needed for Railway's SSL 
+    static_configs:
+      - targets: ['ipswichretail-production.up.railway.app:443']  # replace with your Django service name and port
+   
+  - job_name: 'prometheus'
+    static_configs:
+      - targets: ['localhost:9090']
+      
+remote_write:
+  - url: https://prometheus-prod-55-prod-gb-south-1.grafana.net/api/prom/push
+    basic_auth:
+      username: 2681485
+      password: "${GRAFANA_API_KEY}"

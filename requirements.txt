@@ -1,5 +1,10 @@
 Django==5.2.5
 gunicorn
+whitenoise
 redis
-prometheus-client
 Pillow==11.2.1
+django-prometheus
+psycopg2-binary
+dj-database-url
+pytest
+pytest-django

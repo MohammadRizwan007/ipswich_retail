@@ -7,3 +7,12 @@ services:
     env_file: .env.dev
     ports:
       - "8000:8000"
+    environment:
+      - DJANGO_SETTINGS_MODULE=Ecommerce.settings
+            
+  prometheus:
+    image: prom/prometheus
+    ports:
+      - "9090:9090"
+    volumes:
+      - ./prometheus.yml:/etc/prometheus/prometheus.yml

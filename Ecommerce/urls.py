@@ -18,12 +18,16 @@ from django.contrib import admin
 from django.urls import path, include
 from django.conf import settings
 from django.conf.urls.static import static
+# from django_prometheus import exports
 
 
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('', include('shop.urls')),
+    path('', include('django_prometheus.urls')),  # Prometheus metrics endpoint
+    
 ]
+
 
 # Serve media files during development
 if settings.DEBUG:
