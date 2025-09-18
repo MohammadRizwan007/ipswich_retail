@@ -3,10 +3,18 @@ global:
   evaluation_interval: 15s
 
 scrape_configs:
+  # - job_name: 'django_app'
+  #   metrics_path: '/metrics'
+  #   static_configs:
+  #     - targets: ['web:8000'] 
+  
   - job_name: 'django_app'
     metrics_path: '/metrics'
     static_configs:
       - targets: ['ipswichretail-production.up.railway.app']  # replace with your Django service name and port
+    scheme: 'https'  # Add this since Railway uses HTTPS
+    tls_config:
+      insecure_skip_verify: true  # May be needed for Railway's SSL  
 
   - job_name: 'prometheus'
     static_configs:
