@@ -96,25 +96,36 @@ WSGI_APPLICATION = 'Ecommerce.wsgi.application'
 # https://docs.djangoproject.com/en/5.2/ref/settings/#databases
 
 # Use DATABASE_URL environment variable if available (Railway provides this) Database configuration
-if 'DATABASE_URL' in os.environ:
-    DATABASES = {
-        'default': dj_database_url.config(
-            default=os.environ.get('DATABASE_URL'),
-            conn_max_age=600,
-            conn_health_checks=True,
-        )
-    }
-else:
-    DATABASES = {
-        'default': {
-            'ENGINE': 'django.db.backends.postgresql',
-            'NAME': os.environ.get('POSTGRES_DB', 'railway'),
-            'USER': os.environ.get('POSTGRES_USER', 'postgres'),
-            'PASSWORD': os.environ.get('POSTGRES_PASSWORD', 'kCiJJVVQkwItlolgDvouztWRxeFbckkB'),
-            'HOST': os.environ.get('POSTGRES_HOST', ''),
-            'PORT': os.environ.get('POSTGRES_PORT', 5432),
-        }
-    }
+DATABASE_URL = os.environ.get('DATABASE_URL')
+if not DATABASE_URL:
+    raise Exception("DATABASE_URL not set!")
+
+DATABASES = {
+    'default': dj_database_url.config(
+        default=DATABASE_URL,
+        conn_max_age=600,
+        conn_health_checks=True,
+    )
+}
+# if 'DATABASE_URL' in os.environ:
+#     DATABASES = {
+#         'default': dj_database_url.config(
+#             default=os.environ.get('DATABASE_URL'),
+#             conn_max_age=600,
+#             conn_health_checks=True,
+#         )
+#     }
+# else:
+#     DATABASES = {
+#         'default': {
+#             'ENGINE': 'django.db.backends.postgresql',
+#             'NAME': os.environ.get('POSTGRES_DB', 'railway'),
+#             'USER': os.environ.get('POSTGRES_USER', 'postgres'),
+#             'PASSWORD': os.environ.get('POSTGRES_PASSWORD', 'kCiJJVVQkwItlolgDvouztWRxeFbckkB'),
+#             'HOST': os.environ.get('POSTGRES_HOST', 'postgres.railway.internal'),
+#             'PORT': os.environ.get('POSTGRES_PORT', 5432),
+#         }
+#     }
 
 # DATABASES = {
 #     'default': {
